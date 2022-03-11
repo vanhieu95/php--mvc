@@ -1,0 +1,17 @@
+{
+  "name": "vanhieu95/phpmvc",
+  "autoload": {
+    "psr-4": {
+      "app\\": "./"
+    }
+  },
+  "authors": [
+    {
+      "name": "vanhieu95",
+      "email": "nguyenluongtrunghieu1995@gmail.com"
+    }
+  ],
+  "require": {
+    "php": "^8.1.0"
+  }
+}
