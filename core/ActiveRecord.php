@@ -7,7 +7,7 @@ use app\core\Model;
 
 abstract class ActiveRecord extends Model
 {
-  abstract public function table(): string;
+  abstract static public function table(): string;
 
   abstract public function attributes(): array;
 
@@ -25,10 +25,5 @@ abstract class ActiveRecord extends Model
 
     $statement->execute();
     return true;
-  }
-
-  public static function prepare(string $sqlQuery)
-  {
-    return Application::$app->database->pdo->prepare($sqlQuery);
   }
 }

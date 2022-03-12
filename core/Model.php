@@ -37,6 +37,7 @@ abstract class Model
           self::RULE_MIN => $this->validMin($attribute, $value, $rule),
           self::RULE_MAX => $this->validMax($attribute, $value, $rule),
           self::RULE_MATCH => $this->validMatch($attribute, $value, $rule),
+          self::RULE_UNIQUE => $this->validUnique($attribute, $value, $rule),
           default => $this->addError($attribute, self::RULE_DEFAULT)
         };
       }
@@ -80,6 +81,20 @@ abstract class Model
     }
   }
 
+  private function validUnique($attribute, $value, $rule): void
+  {
+    $class = $rule['class'];
+    $uniqueAttribute = $rule['attribute'] ?? $attribute;
+    $table = $class::table();
+    $statement = $this->prepare("SELECT * FROM {$table} WHERE {$uniqueAttribute} = :attribute");
+    $statement->bindValue(":attribute", $value);
+    $statement->execute();
+    $record = $statement->fetchObject();
+    if ($record) {
+      $this->addError($attribute, self::RULE_UNIQUE, $rule);
+    }
+  }
+
   private function addError(string $attribute, string $rule, $params = []): void
   {
     $params = ['field' => $attribute, ...$params];
@@ -90,6 +105,7 @@ abstract class Model
       self::RULE_MIN => '{field} min length must be {min}',
       self::RULE_MAX => '{field} max length must be {max}',
       self::RULE_MATCH => '{field} must be the same as {match}',
+      self::RULE_UNIQUE => '{field} must unique',
       self::RULE_DEFAULT =>  '{field} is invalid'
     };
 
@@ -112,7 +128,8 @@ abstract class Model
     return !empty($this->errors[$attribute]) ? array_values($this->errors[$attribute])[0] : false;
   }
 
-  public function save()
+  public static function prepare(string $sqlQuery)
   {
+    return Application::$app->database->prepare($sqlQuery);
   }
 }

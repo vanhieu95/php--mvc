@@ -6,13 +6,18 @@ use app\core\ActiveRecord;
 
 class User extends ActiveRecord
 {
+  const STATUS_INACTIVE = 0;
+  const STATUS_ACTIVE = 1;
+  const STATUS_DELETED = 2;
+
   public string $firstname = '';
   public string $lastname = '';
   public string $email = '';
+  public int $status = self::STATUS_INACTIVE;
   public string $password = '';
   public string $passwordConfirm = '';
 
-  public function table(): string
+  public static function table(): string
   {
     return 'user';
   }
@@ -20,7 +25,7 @@ class User extends ActiveRecord
   public function attributes(): array
   {
     return [
-      'firstname', 'lastname', 'email', 'password'
+      'firstname', 'lastname', 'email', 'password', 'status'
     ];
   }
 
@@ -37,7 +42,11 @@ class User extends ActiveRecord
         [self::RULE_MIN, 'min' => 2],
         [self::RULE_MAX, 'max' => 20]
       ],
-      'email' => [self::RULE_REQUIRED, self::RULE_EMAIL],
+      'email' => [
+        self::RULE_REQUIRED,
+        self::RULE_EMAIL,
+        [self::RULE_UNIQUE, 'class' => self::class]
+      ],
       'password' => [
         self::RULE_REQUIRED,
         [self::RULE_MIN, 'min' => 8],
@@ -54,6 +63,7 @@ class User extends ActiveRecord
 
   public function save()
   {
+    $this->status = self::STATUS_INACTIVE;
     $this->password = password_hash($this->password, PASSWORD_DEFAULT);
     return parent::save();
   }
