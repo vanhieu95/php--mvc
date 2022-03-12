@@ -12,7 +12,7 @@ class m0001_create_user_table
       email VARCHAR(255) NOT NULL,
       firstname VARCHAR(255) NOT NULL,
       lastname VARCHAR(255) NOT NULL,
-      status TINYINT NOT NULL,
+      status TINYINT NOT NULL DEFAULT 0,
       created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     ) ENGINE=INNODB;";
     $database->pdo->exec($sqlQuery);

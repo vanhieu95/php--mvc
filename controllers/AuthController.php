@@ -25,7 +25,7 @@ class AuthController extends Controller
       $user->load($request->body());
 
       if ($user->validate() && $user->save()) {
-        return 'Ok';
+        echo "Success";
       }
 
       return $this->render('register', [

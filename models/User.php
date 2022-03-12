@@ -2,15 +2,27 @@
 
 namespace app\models;
 
-use app\core\Model;
+use app\core\ActiveRecord;
 
-class User extends Model
+class User extends ActiveRecord
 {
   public string $firstname = '';
   public string $lastname = '';
   public string $email = '';
   public string $password = '';
   public string $passwordConfirm = '';
+
+  public function table(): string
+  {
+    return 'user';
+  }
+
+  public function attributes(): array
+  {
+    return [
+      'firstname', 'lastname', 'email', 'password'
+    ];
+  }
 
   public function rules(): array
   {
@@ -38,5 +50,11 @@ class User extends Model
         [self::RULE_MAX, 'max' => 50]
       ]
     ];
+  }
+
+  public function save()
+  {
+    $this->password = password_hash($this->password, PASSWORD_DEFAULT);
+    return parent::save();
   }
 }
