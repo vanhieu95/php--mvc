@@ -8,18 +8,23 @@ class Application
   public static Application $app;
   private Controller $controller;
 
+  public Request $request;
+  public Response $response;
   public Router $router;
+  public Database $database;
 
   public function __construct(
     string $rootDir,
-    public Request $request = new Request(),
-    public Response $response = new Response(),
-    Router $router = null,
-    public $database = new Database()
+    array $config,
   ) {
     self::$app = $this;
     self::$ROOT_DIR = $rootDir;
-    $this->router = new Router($request, $response);
+
+    $this->request = new Request();
+    $this->response = new Response();
+    $this->router = new Router($this->request, $this->response);
+
+    $this->database = new Database($config['db']);
   }
 
   public function run(): void
