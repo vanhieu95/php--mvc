@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2d08b5d84b0c04b0bae4fe92eef5decb",
+    "content-hash": "0bf63dbed32be2a759426747badb178e",
     "packages": [
         {
             "name": "graham-campbell/result-type",
@@ -389,16 +389,16 @@
         },
         {
             "name": "van-hieu/php-mvc-core",
-            "version": "v0.1.1",
+            "version": "v0.1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/vanhieu95/php-mvc-core.git",
-                "reference": "039c4ebf6212d5a5b48ac0dbbdce7d216aabb28a"
+                "reference": "1bec5de8427706f5d5904f8db2fdf33ea509f1a4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/vanhieu95/php-mvc-core/zipball/039c4ebf6212d5a5b48ac0dbbdce7d216aabb28a",
-                "reference": "039c4ebf6212d5a5b48ac0dbbdce7d216aabb28a",
+                "url": "https://api.github.com/repos/vanhieu95/php-mvc-core/zipball/1bec5de8427706f5d5904f8db2fdf33ea509f1a4",
+                "reference": "1bec5de8427706f5d5904f8db2fdf33ea509f1a4",
                 "shasum": ""
             },
             "type": "library",
@@ -416,9 +416,9 @@
             ],
             "support": {
                 "issues": "https://github.com/vanhieu95/php-mvc-core/issues",
-                "source": "https://github.com/vanhieu95/php-mvc-core/tree/v0.1.1"
+                "source": "https://github.com/vanhieu95/php-mvc-core/tree/v0.1.2"
             },
-            "time": "2022-03-13T13:29:57+00:00"
+            "time": "2022-03-13T14:16:00+00:00"
         },
         {
             "name": "vlucas/phpdotenv",
