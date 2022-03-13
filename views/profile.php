@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @var \app\core\View $this
+ * @var \VanHieu\PhpMvcCore\View $this
  */
 
 $this->title = 'Profile';

@@ -2,7 +2,7 @@
 
 namespace app\models;
 
-use app\core\User as CoreUser;
+use VanHieu\PhpMvcCore\User as CoreUser;
 
 class User extends CoreUser
 {

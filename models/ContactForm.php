@@ -2,8 +2,8 @@
 
 namespace app\models;
 
-use app\core\Application;
-use app\core\Model;
+use VanHieu\PhpMvcCore\Application;
+use VanHieu\PhpMvcCore\Model;
 
 class ContactForm extends Model
 {

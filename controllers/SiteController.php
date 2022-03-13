@@ -2,10 +2,10 @@
 
 namespace app\controllers;
 
-use app\core\Application;
-use app\core\Controller;
-use app\core\Request;
-use app\core\Response;
+use VanHieu\PhpMvcCore\Application;
+use VanHieu\PhpMvcCore\Controller;
+use VanHieu\PhpMvcCore\Request;
+use VanHieu\PhpMvcCore\Response;
 use app\models\ContactForm;
 
 class SiteController extends Controller

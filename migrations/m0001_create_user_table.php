@@ -1,6 +1,6 @@
 <?php
 
-use app\core\Application;
+use VanHieu\PhpMvcCore\Application;
 
 class m0001_create_user_table
 {

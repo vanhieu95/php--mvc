@@ -1,6 +1,6 @@
 <?php
 
-use app\core\Application;
+use VanHieu\PhpMvcCore\Application;
 
 class m0002_add_password_into_user_table
 {

@@ -1,10 +1,10 @@
 <?php
 
 /**
- * @var \app\core\View $this
+ * @var \VanHieu\PhpMvcCore\View $this
  */
 
-use app\core\form\Form;
+use VanHieu\PhpMvcCore\form\Form;
 
 $this->title = 'Contact';
 ?>

@@ -1,7 +1,7 @@
 <?php
 
-use app\core\Application;
-use app\core\View;
+use VanHieu\PhpMvcCore\Application;
+use VanHieu\PhpMvcCore\View;
 
 /**
  * @var View $this

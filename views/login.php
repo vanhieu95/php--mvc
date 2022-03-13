@@ -1,9 +1,9 @@
 <?php
 
-use app\core\form\Form;
+use VanHieu\PhpMvcCore\form\Form;
 
 /**
- * @var \app\core\View $this
+ * @var \VanHieu\PhpMvcCore\View $this
  * @var \app\models\LoginForm $loginForm
  */
 

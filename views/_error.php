@@ -2,7 +2,7 @@
 
 
 /** 
- * @var \app\core\View $this
+ * @var \VanHieu\PhpMvcCore\View $this
  * @var Exception $exception
  */
 

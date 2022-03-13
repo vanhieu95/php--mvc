@@ -1,6 +1,6 @@
 <?php
 
-use app\core\View;
+use VanHieu\PhpMvcCore\View;
 
 /**
  * @var View $this
