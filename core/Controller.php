@@ -2,9 +2,17 @@
 
 namespace app\core;
 
+use app\core\middlewares\BaseMiddleware;
+
 class Controller
 {
   public string $layout = 'main';
+  private string $action = '';
+
+  /**
+   * @var BaseMiddleware[] 
+   */
+  protected array $middlewares = [];
 
   public function setLayout($layout)
   {
@@ -14,5 +22,33 @@ class Controller
   public function render(string $view, array $params = []): string
   {
     return Application::$app->router->renderView($view, $params);
+  }
+
+  public function registerMiddleware(BaseMiddleware $middleware)
+  {
+    $this->middlewares[] = $middleware;
+  }
+
+  public function setAction(string $action)
+  {
+    $this->action = $action;
+  }
+
+  public function getAction(): string
+  {
+    return $this->action;
+  }
+
+  public function setMiddlewares(BaseMiddleware $middleware)
+  {
+    $this->middlewares[] = $middleware;
+  }
+
+  /**
+   * @return BaseMiddleware[]
+   */
+  public function getMiddlewares(): array
+  {
+    return $this->middlewares;
   }
 }

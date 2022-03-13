@@ -2,11 +2,14 @@
 
 namespace app\core;
 
+use Exception;
+
 class Application
 {
   public static string $ROOT_DIR;
   public static Application $app;
-  private Controller $controller;
+  private ?Controller $controller = null;
+  public string $layout = 'main';
   public string $userClass;
 
   public Request $request;
@@ -42,10 +45,18 @@ class Application
 
   public function run(): void
   {
-    echo $this->router->resolve();
+    try {
+      echo $this->router->resolve();
+    } catch (Exception $exception) {
+      $statusCode = $exception->getCode() ?? 500;
+      $this->response->setStatusCode($statusCode);
+      echo $this->router->renderView('_error', [
+        'exception' => $exception
+      ]);
+    }
   }
 
-  public function getController(): Controller
+  public function getController(): ?Controller
   {
     return $this->controller;
   }

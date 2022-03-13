@@ -2,6 +2,8 @@
 
 namespace app\core;
 
+use app\core\exception\NotFoundException;
+
 class Router
 {
   protected array $routers = [];
@@ -44,8 +46,7 @@ class Router
     $callback = $this->routers[$method][$path] ?? false;
 
     if (!$callback) {
-      $this->response->setStatusCode(404);
-      return $this->renderContent('Not Found');
+      throw new NotFoundException();
     }
 
     if (is_string($callback)) {
@@ -54,7 +55,13 @@ class Router
 
     if (is_array($callback)) {
       Application::$app->setController(new $callback[0]());
-      $callback[0] = Application::$app->getController();
+      $controller = $callback[0] = Application::$app->getController();
+      Application::$app->getController()->setAction($callback[1]);
+
+      $middlewares = $controller->getMiddlewares();
+      foreach ($middlewares as $middleware) {
+        $middleware->execute();
+      }
     }
 
     return call_user_func($callback, $this->request, $this->response);
@@ -75,7 +82,7 @@ class Router
 
   protected function layoutContent(): string
   {
-    $layout = Application::$app->getController()->layout;
+    $layout = Application::$app->getController()?->layout ?? Application::$app->layout;
     ob_start();
     include_once Application::$ROOT_DIR . "/views/layout/{$layout}.php";
     return ob_get_clean();
