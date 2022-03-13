@@ -15,6 +15,7 @@ class Application
   public Request $request;
   public Response $response;
   public Router $router;
+  public View $view;
   public Session $session;
   public Database $database;
   public ?User $user;
@@ -31,6 +32,7 @@ class Application
     $this->response = new Response();
     $this->session = new Session();
     $this->router = new Router($this->request, $this->response);
+    $this->view = new View();
 
     $this->database = new Database($config['db']);
 
@@ -50,7 +52,7 @@ class Application
     } catch (Exception $exception) {
       $statusCode = $exception->getCode() ?? 500;
       $this->response->setStatusCode($statusCode);
-      echo $this->router->renderView('_error', [
+      echo $this->view->renderView('_error', [
         'exception' => $exception
       ]);
     }

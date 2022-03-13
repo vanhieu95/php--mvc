@@ -50,7 +50,7 @@ class Router
     }
 
     if (is_string($callback)) {
-      return $this->renderView($callback);
+      return Application::$app->view->renderView($callback);
     }
 
     if (is_array($callback)) {
@@ -65,37 +65,5 @@ class Router
     }
 
     return call_user_func($callback, $this->request, $this->response);
-  }
-
-  public function renderView(string $view, array $params = []): string
-  {
-    $layoutContent = $this->layoutContent();
-    $viewContent = $this->renderOnlyView($view, $params);
-    return str_replace('{{ content }}', $viewContent, $layoutContent);
-  }
-
-  public function renderContent(string $viewContent): string
-  {
-    $layoutContent = $this->layoutContent();
-    return str_replace('{{ content }}', $viewContent, $layoutContent);
-  }
-
-  protected function layoutContent(): string
-  {
-    $layout = Application::$app->getController()?->layout ?? Application::$app->layout;
-    ob_start();
-    include_once Application::$ROOT_DIR . "/views/layout/{$layout}.php";
-    return ob_get_clean();
-  }
-
-  protected function renderOnlyView(string $view, array $params): string
-  {
-    foreach ($params as $key => $value) {
-      $$key = $value;
-    }
-
-    ob_start();
-    include_once Application::$ROOT_DIR . "/views/{$view}.php";
-    return ob_get_clean();
   }
 }

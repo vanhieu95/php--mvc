@@ -3,8 +3,11 @@
 use app\core\form\Form;
 
 /**
+ * @var \app\core\View $this
  * @var \app\models\User $user
  */
+
+$this->title = 'Sign Up';
 ?>
 
 <h1 class="my-5">Sign up</h1>
