@@ -14,6 +14,14 @@ abstract class Model
 
   abstract public function rules(): array;
 
+  abstract public function labels(): array;
+
+  public function label()
+  {
+    return $this->labels()[$this->attribute]
+      ?? implode(array: preg_split('/(?=[A-Z])/', ucfirst($this->attribute)), separator: ' ');
+  }
+
   public array $errors = [];
 
   public function load($data): void
@@ -77,6 +85,7 @@ abstract class Model
   private function validMatch($attribute, $value, $rule): void
   {
     if ($value !== $this->{$rule['match']}) {
+      $rule['match'] = $this->label($rule['match']);
       $this->addError($attribute, self::RULE_MATCH, $rule);
     }
   }
@@ -97,7 +106,7 @@ abstract class Model
 
   private function addError(string $attribute, string $rule, $params = []): void
   {
-    $params = ['field' => $attribute, ...$params];
+    $params = ['field' => $this->labels()[$attribute] ?? $attribute, ...$params];
 
     $message = match ($rule) {
       self::RULE_REQUIRED => '{field} is required',
@@ -110,9 +119,7 @@ abstract class Model
     };
 
     foreach ($params as $key => $value) {
-      $message = $key === 'field'
-        ? ucfirst(str_replace("{{$key}}", $value, $message))
-        : str_replace("{{$key}}", $value, $message);
+      $message = str_replace("{{$key}}", $value, $message);
     }
 
     $this->errors[$attribute][$rule] = $message;

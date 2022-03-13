@@ -29,7 +29,7 @@ class Field
         </div>
       </div>',
       $this->attribute,
-      implode(array: preg_split('/(?=[A-Z])/', ucfirst($this->attribute)), separator: ' '),
+      $this->model->label($this->attribute),
       $this->type,
       $this->attribute,
       $this->attribute,

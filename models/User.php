@@ -49,15 +49,26 @@ class User extends ActiveRecord
       ],
       'password' => [
         self::RULE_REQUIRED,
-        [self::RULE_MIN, 'min' => 8],
+        [self::RULE_MIN, 'min' => 6],
         [self::RULE_MAX, 'max' => 50]
       ],
       'passwordConfirm' => [
         self::RULE_REQUIRED,
         [self::RULE_MATCH, 'match' => 'password'],
-        [self::RULE_MIN, 'min' => 8],
+        [self::RULE_MIN, 'min' => 6],
         [self::RULE_MAX, 'max' => 50]
       ]
+    ];
+  }
+
+  public function labels(): array
+  {
+    return [
+      'firstname' => 'First Name',
+      'lastname' => 'Last Name',
+      'email' => 'Email',
+      'password' => 'Password',
+      'passwordConfirm' => 'Repeat Password',
     ];
   }
 
