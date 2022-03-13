@@ -4,19 +4,16 @@
  * @var \app\core\View $this
  */
 
+use app\core\form\Form;
+
 $this->title = 'Contact';
 ?>
 
-<h1>Contact Me</h1>
+<h1 class="my-5">Contact Us</h1>
 
-<form action="" method="POST">
-  <div class="mb-3">
-    <label for="email" class="form-label">Email address</label>
-    <input type="email" name="email" class="form-control" id="email">
-  </div>
-  <div class="mb-3">
-    <label for="phone" class="form-label">Phone</label>
-    <input type="text" name="phone" class="form-control" id="phone">
-  </div>
-  <button type="submit" class="btn btn-primary">Submit</button>
-</form>
+<?php $form = Form::begin('', "post") ?>
+<?php echo $form->field($contactForm, 'subject') ?>
+<?php echo $form->field($contactForm, 'email')->email() ?>
+<?php echo $form->textarea($contactForm, 'body') ?>
+<button type="submit" class="btn btn-primary">Send</button>
+<?php Form::end() ?>

@@ -2,6 +2,8 @@
 
 namespace app\core;
 
+use app\core\db\ActiveRecord;
+use app\core\db\Database;
 use Exception;
 
 class Application

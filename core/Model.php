@@ -106,7 +106,7 @@ abstract class Model
 
   private function addError(string $attribute, string $rule, $params = []): void
   {
-    $params = ['field' => $this->labels()[$attribute] ?? $attribute, ...$params];
+    $params = ['field' => $this->labels()[$attribute] ?? ucfirst($attribute), ...$params];
 
     $message = match ($rule) {
       self::RULE_REQUIRED => '{field} is required',
