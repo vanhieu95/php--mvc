@@ -2,7 +2,6 @@
 
 namespace app\core;
 
-use app\core\Application;
 use app\core\Model;
 
 abstract class ActiveRecord extends Model
@@ -10,6 +9,8 @@ abstract class ActiveRecord extends Model
   abstract static public function table(): string;
 
   abstract public function attributes(): array;
+
+  abstract public static function primaryKey(): string;
 
   public function save()
   {
@@ -25,5 +26,27 @@ abstract class ActiveRecord extends Model
 
     $statement->execute();
     return true;
+  }
+
+  public static function findOne(array $where)
+  {
+    $table = static::table();
+
+    $attributes = array_keys($where);
+
+    $whereQuery = implode(
+      array: array_map(array: $attributes, callback: fn ($attribute) => "{$attribute} = :{$attribute}"),
+      separator: " AND "
+    );
+
+    $sqlQuery = "SELECT * FROM {$table} WHERE {$whereQuery}";
+    $statement = self::prepare($sqlQuery);
+
+    foreach ($where as $key => $value) {
+      $statement->bindValue(":{$key}", $value);
+    }
+
+    $statement->execute();
+    return $statement->fetchObject(static::class);
   }
 }

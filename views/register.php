@@ -1,9 +1,13 @@
 <?php
 
 use app\core\form\Form;
+
+/**
+ * @var \app\models\User $user
+ */
 ?>
 
-<h1>Sign up</h1>
+<h1 class="my-5">Sign up</h1>
 
 <?php $form = Form::begin('', "post") ?>
 <div class="row">

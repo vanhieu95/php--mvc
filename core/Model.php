@@ -16,10 +16,10 @@ abstract class Model
 
   abstract public function labels(): array;
 
-  public function label()
+  public function label(string $attribute)
   {
-    return $this->labels()[$this->attribute]
-      ?? implode(array: preg_split('/(?=[A-Z])/', ucfirst($this->attribute)), separator: ' ');
+    return $this->labels()[$attribute]
+      ?? implode(array: preg_split('/(?=[A-Z])/', ucfirst($attribute)), separator: ' ');
   }
 
   public array $errors = [];
@@ -123,6 +123,11 @@ abstract class Model
     }
 
     $this->errors[$attribute][$rule] = $message;
+  }
+
+  public function addErrorMessage(string $attribute, string $message)
+  {
+    $this->errors[$attribute][] = $message;
   }
 
   public function hasErrors(string $attribute): bool
